@@ -1,5 +1,6 @@
 pub mod state;
 
+use state::State;
 use winit::{window::WindowBuilder, event_loop::{EventLoop, ControlFlow}, event::{WindowEvent, ElementState, KeyboardInput, VirtualKeyCode, Event}};
 
 #[tokio::main]
@@ -7,6 +8,8 @@ async fn main() {
     env_logger::init();
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
+
+    let mut state = State::new(&window).await;
 
     event_loop.run(move |event, _, control_flow| match event {
         Event::WindowEvent {
