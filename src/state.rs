@@ -71,7 +71,18 @@ impl State {
         }
     }
 
-    fn resize(&mut self, new_size: PhysicalSize<u32>) {}
+    fn resize(&mut self, new_size: PhysicalSize<u32>) {
+        // if the new size and the new height are larger than 0 then set the config width and height to 
+        // the new height and width
+        // reconfigure the surface for these new heights and widths
+        // doens't make sense if it's smaller than 0
+        if new_size.width > 0 && new_size.height > 0 {
+            self.size = new_size;
+            self.config.width = new_size.width;
+            self.config.height = new_size.height;
+            self.surface.configure(&self.device, &self.config);
+        }
+    }
 
     fn input(&mut self, event: &WindowEvent) -> bool {}
 
