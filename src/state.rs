@@ -71,7 +71,7 @@ impl State {
         }
     }
 
-    fn resize(&mut self, new_size: PhysicalSize<u32>) {
+    pub fn resize(&mut self, new_size: PhysicalSize<u32>) {
         // if the new size and the new height are larger than 0 then set the config width and height to 
         // the new height and width
         // reconfigure the surface for these new heights and widths
@@ -84,9 +84,9 @@ impl State {
         }
     }
 
-    fn input(&mut self, event: &WindowEvent) -> bool {}
+    pub fn input(&mut self, event: &WindowEvent) -> bool {}
 
-    fn update(&mut self) {}
+    pub fn update(&mut self) {}
 
-    fn render(&mut self) -> Result<(), SurfaceError> {}
+    pub fn render(&mut self) -> Result<(), SurfaceError> {}
 }
