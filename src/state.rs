@@ -89,9 +89,7 @@ impl State {
         false
     }
 
-    pub fn update(&mut self) {
-        todo!();
-    }
+    pub fn update(&mut self) {}
 
     pub fn render(&mut self) -> Result<(), SurfaceError> {
         todo!();
