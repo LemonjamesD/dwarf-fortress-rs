@@ -84,9 +84,16 @@ impl State {
         }
     }
 
-    pub fn input(&mut self, event: &WindowEvent) -> bool {}
+    pub fn input(&mut self, event: &WindowEvent) -> bool {
+        // false for now until I set something up
+        false
+    }
 
-    pub fn update(&mut self) {}
+    pub fn update(&mut self) {
+        todo!();
+    }
 
-    pub fn render(&mut self) -> Result<(), SurfaceError> {}
+    pub fn render(&mut self) -> Result<(), SurfaceError> {
+        todo!();
+    }
 }
