@@ -72,7 +72,7 @@ impl State {
     }
 
     pub fn resize(&mut self, new_size: PhysicalSize<u32>) {
-        // if the new size and the new height are larger than 0 then set the config width and height to 
+        // if the new size and the new height are larger than 0 then set the config width and height to
         // the new height and width
         // reconfigure the surface for these new heights and widths
         // doens't make sense if it's smaller than 0
@@ -92,6 +92,39 @@ impl State {
     pub fn update(&mut self) {}
 
     pub fn render(&mut self) -> Result<(), SurfaceError> {
-        todo!();
+        let output = self.surface.get_current_texture()?;
+        let view = output
+            .texture
+            .create_view(&wgpu::TextureViewDescriptor::default());
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("Render Encoder"),
+            });
+        {
+            let _render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                label: Some("Render Pass"),
+                color_attachments: &[wgpu::RenderPassColorAttachment {
+                    view: &view,
+                    resolve_target: None,
+                    ops: wgpu::Operations {
+                        load: wgpu::LoadOp::Clear(wgpu::Color {
+                            r: 0.1,
+                            g: 0.2,
+                            b: 0.3,
+                            a: 1.0,
+                        }),
+                        store: true,
+                    },
+                }],
+                depth_stencil_attachment: None,
+            });
+        }
+
+        // submit will accept anything that implements IntoIter
+        self.queue.submit(std::iter::once(encoder.finish()));
+        output.present();
+
+        Ok(())
     }
 }
