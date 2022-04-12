@@ -2,11 +2,11 @@ use wgpu::{Device, Queue, Surface, SurfaceConfiguration, SurfaceError};
 use winit::{dpi::PhysicalSize, event::WindowEvent, window::Window};
 
 pub struct State {
-    surface: Surface,
-    device: Device,
-    queue: Queue,
-    config: SurfaceConfiguration,
-    size: PhysicalSize<u32>,
+    pub surface: Surface,
+    pub device: Device,
+    pub queue: Queue,
+    pub config: SurfaceConfiguration,
+    pub size: PhysicalSize<u32>,
 }
 
 impl State {
