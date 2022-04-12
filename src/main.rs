@@ -1,7 +1,11 @@
 pub mod state;
 
 use state::State;
-use winit::{window::WindowBuilder, event_loop::{EventLoop, ControlFlow}, event::{WindowEvent, ElementState, KeyboardInput, VirtualKeyCode, Event}};
+use winit::{
+    event::{ElementState, Event, KeyboardInput, VirtualKeyCode, WindowEvent},
+    event_loop::{ControlFlow, EventLoop},
+    window::WindowBuilder,
+};
 
 #[tokio::main]
 async fn main() {
@@ -26,6 +30,13 @@ async fn main() {
                     },
                 ..
             } => *control_flow = ControlFlow::Exit,
+            WindowEvent::Resized(physical_size) => {
+                state.resize(*physical_size);
+            }
+            WindowEvent::ScaleFactorChanged { new_inner_size, .. } => {
+                // new_inner_size is &&mut so we have to dereference it twice
+                state.resize(**new_inner_size);
+            }
             _ => {}
         },
         _ => {}
