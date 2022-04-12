@@ -43,6 +43,23 @@ async fn main() {
                 }
             }
         }
+        Event::RedrawRequested(window_id) if window_id == window.id() => {
+            state.update();
+            match state.render() {
+                Ok(_) => {}
+                // Reconfigure the surface if lost
+                Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
+                // The system is out of memory, we should probably quit
+                Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
+                // All other errors (Outdated, Timeout) should be resolved by the next frame
+                Err(e) => eprintln!("{:?}", e),
+            }
+        }
+        Event::MainEventsCleared => {
+            // RedrawRequested will only trigger once, unless we manually
+            // request it.
+            window.request_redraw();
+        }
         _ => {}
     });
 }
