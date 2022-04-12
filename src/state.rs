@@ -10,7 +10,7 @@ pub struct State {
 }
 
 impl State {
-    async fn new(window: &Window) -> Self {
+    pub async fn new(window: &Window) -> Self {
         let size = window.inner_size();
 
         // The instance is a handle to our GPU
