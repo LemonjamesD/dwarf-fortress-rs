@@ -1,3 +1,5 @@
+pub mod state;
+
 use winit::{window::WindowBuilder, event_loop::{EventLoop, ControlFlow}, event::{WindowEvent, ElementState, KeyboardInput, VirtualKeyCode, Event}};
 
 #[tokio::main]
